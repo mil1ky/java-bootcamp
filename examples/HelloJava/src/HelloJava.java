@@ -3,3 +3,5 @@ public class HelloJava {
         System.out.println("Hello Java Bootcamp!");
     }
 }
+// Lab 0 startup
+

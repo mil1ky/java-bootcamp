@@ -44,3 +44,11 @@
 
 Account should decide if a withdrawal is allowed because it knows how much money is in the account. Main should just ask the account to withdraw money.
 
+
+
+
+
+The original method could change because the formula changes or because
+
+the output format changes. These are separate responsibilities.
+

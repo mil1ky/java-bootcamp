@@ -7,6 +7,7 @@ public class EncapsulationDemo
         account.withdraw(30.00);    // balance: 120
         account.withdraw(500.00);   // rejected; balance remains 120
 
+
         System.out.printf(
                 "Final balance: %.2f%n", account.getBalance());
     }

@@ -92,3 +92,13 @@ Pause-related log lines look different — ZGC does most of its work concurrentl
 
 so it does not report the same kind of stop-the-world "Evacuation Pause" G1 does.
 
+
+
+loaded RetentionDemo class
+
+&#x20; → static CACHE field
+
+&#x20; → ArrayList entries
+
+&#x20; → byte\[] objects
+

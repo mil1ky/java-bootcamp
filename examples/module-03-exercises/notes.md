@@ -102,3 +102,11 @@ loaded RetentionDemo class
 
 &#x20; → byte\[] objects
 
+
+
+After adds:  \[Java Fundamentals, Clean Code, Effective Java, Java Fundamentals]
+
+After set:   \[Java Fundamentals, Clean Architecture, Effective Java, Java Fundamentals]
+
+After remove:\[Clean Architecture, Effective Java, Java Fundamentals]
+

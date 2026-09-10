@@ -7,12 +7,12 @@
       <sourceFolder url="file://$MODULE_DIR$/examples/module-01-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-02-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/examples/module-03-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-04-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-05-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-07-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-06-exercises" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/examples/jvm-compilation-lab" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/module-03-exercises" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

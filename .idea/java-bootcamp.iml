@@ -13,6 +13,8 @@
       <sourceFolder url="file://$MODULE_DIR$/examples/module-06-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-08-exercises" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/module-09-exercises" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/examples/lab8-crm" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/examples/lab8-crm/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/examples/jvm-compilation-lab" />
       <excludeFolder url="file://$MODULE_DIR$/examples/module-03-exercises" />
     </content>

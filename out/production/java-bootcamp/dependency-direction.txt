@@ -1,0 +1,28 @@
+```text
+| Dependency | Decision | Why |
+| ---------- | -------- | --- |
+| controller → service | Acceptable | Controllers can call services to handle business logic. |
+| service → repository | Acceptable | Services can use repositories for data access. |
+| repository → entity | Acceptable | Repositories can work with domain entities. |
+| entity → controller | Problematic | Domain entities should not depend on transport/presentation. |
+| repository → controller | Problematic | Persistence should not depend on presentation. |
+| service → DTO | Needs context | Acceptable for simple mapping, but avoid transport concerns leaking into business logic. |
+| DTO → repository | Problematic | DTOs represent data crossing boundaries and should not perform storage operations. |
+
+
+
+controller → service → repository → controller
+
+
+
+Changes can ripple in both directions, isolated testing becomes harder, and package ownership becomes unclear.
+
+
+
+controller → service → repository → entity
+
+
+
+Higher-level request handling may call inward services and repositories.
+Domain/entity and repository packages must not import controller classes.
+

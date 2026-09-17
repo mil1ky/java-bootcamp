@@ -1,0 +1,35 @@
+```text
+| Task | Layer |
+| ---- | ----- |
+| Accept future create-customer input | controller |
+| Reject blank customer name | service |
+| Find customer by ID | repository |
+| Represent customer ID/name/status | entity |
+| Represent create request fields | dto |
+| Define customer-not-found failure | exception |
+| Wire application objects later | config |
+
+accept input → controller
+business validation → service
+find by ID → repository
+domain state → entity
+request shape → dto
+failure type → exception
+wiring/configuration → config
+
+Bad flow:
+
+Controller validates every business rule
+→ edits an in-memory list directly
+→ constructs database queries
+→ formats errors
+
+Correct flow:
+
+Controller maps request
+→ Service validates/orchestrates
+→ Repository saves/finds
+→ Service returns result
+→ Controller maps response
+
+Separating responsibilities makes each layer easier to test in isolation. The storage implementation can be replaced without changing the controller because the repository owns data-access concerns. Transport concerns such as HTTP requests and responses stay in the controller instead of being mixed with business logic. Clear boundaries also make ownership discoverable, so developers can quickly determine where a particular rule or responsibility belongs.

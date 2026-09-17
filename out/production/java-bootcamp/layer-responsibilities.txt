@@ -1,0 +1,10 @@
+| Task | Layer | | ---- | ----- | 
+| Accept future create-customer input | controller | 
+| Reject blank customer name | service | 
+| Find customer by ID | repository | 
+| Represent customer ID/name/status | entity | 
+| Represent create request fields | dto | 
+| Define customer-not-found failure | exception | 
+| Wire application objects later | config |
+
+

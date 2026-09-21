@@ -9,6 +9,7 @@
         <module name="customer-service" />
         <module name="customer-service (1)" />
         <module name="customer-service (2)" />
+        <module name="customer-service (3)" />
       </profile>
     </annotationProcessing>
   </component>

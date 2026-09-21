@@ -8,14 +8,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CustomerTest {
 
     @Test
-    void twoCustomersWithSameIdAreEqual() {
+    void twoCustomersWithSameIdAreEqual()
+    {
         Customer c1 = new Customer("CUS-1001", "Amina Khan", "amina@example.com", "555-1234", CustomerStatus.ACTIVE, LocalDateTime.now());
         Customer c2 = new Customer("CUS-1001", "Different Name", "other@example.com", "555-0000", CustomerStatus.PROSPECT, LocalDateTime.now().minusDays(1));
-n        assertEquals(c1, c2, "Customers with the same customerId should be equal");
+
+   assertEquals(c1, c2, "Customers with the same customerId should be equal");
     }
 
     @Test
-    void toStringContainsCustomerId() {
+    void toStringContainsCustomerId()
+    {
         Customer c = new Customer("CUS-2002", "Name", "n@example.com", "555-9999", CustomerStatus.SUSPENDED, LocalDateTime.now());
         String s = c.toString();
         assertTrue(s.contains("CUS-2002"), "toString() should contain the customerId");

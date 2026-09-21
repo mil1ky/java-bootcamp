@@ -2,86 +2,126 @@ package com.northstar.crm.service;
 
 import com.northstar.crm.entity.Customer;
 import com.northstar.crm.entity.CustomerStatus;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CustomerServiceTest {
+class CustomerServiceTest {
 
-    private CustomerService service;
+    @Test
+    void createAminaKhanThenGetById() {
+        CustomerService svc = new CustomerService();
 
-    @BeforeEach
-    void setUp() {
-        service = new CustomerService();
+        Customer created = svc.createCustomer(
+                "CUS-1001",
+                "Amina Khan",
+                "amina.khan@example.com",
+                null,
+                CustomerStatus.ACTIVE
+        );
+
+        assertEquals("CUS-1001", created.getCustomerId());
+        assertEquals(CustomerStatus.ACTIVE, created.getStatus());
+        assertEquals(
+                "Amina Khan",
+                svc.getCustomer("CUS-1001").getFullName()
+        );
     }
 
     @Test
-    void addCustomerStoresCustomer() {
-        Customer c = new Customer("CUS-1001", "Alice", "a@example.com", "111-2222", CustomerStatus.PROSPECT, LocalDateTime.now());
-        service.addCustomer(c);
-        Optional<Customer> found = service.findByCustomerId("CUS-1001");
-        assertTrue(found.isPresent(), "Customer should be present after add");
+    void createRaviProspectThenActivate() {
+        CustomerService svc = new CustomerService();
+
+        Customer created = svc.createCustomer(
+                "CUS-1002",
+                "Ravi Singh",
+                "ravi.singh@example.com",
+                null,
+                CustomerStatus.PROSPECT
+        );
+
+        assertEquals(CustomerStatus.PROSPECT, created.getStatus());
+
+        Customer updated = svc.updateStatus(
+                "CUS-1002",
+                CustomerStatus.ACTIVE
+        );
+
+        assertEquals(CustomerStatus.ACTIVE, updated.getStatus());
+        assertEquals(
+                CustomerStatus.ACTIVE,
+                svc.getCustomer("CUS-1002").getStatus()
+        );
     }
 
     @Test
-    void duplicateCustomerIdThrows() {
-        Customer c1 = new Customer("CUS-1001", "Alice", "a@example.com", "111-2222", CustomerStatus.PROSPECT, LocalDateTime.now());
-        service.addCustomer(c1);
-        Customer c2 = new Customer("CUS-1001", "Bob", "b@example.com", "333-4444", CustomerStatus.ACTIVE, LocalDateTime.now());
-        assertThrows(IllegalStateException.class, () -> service.addCustomer(c2));
+    void duplicateIdThrows() {
+        CustomerService svc = new CustomerService();
+
+        svc.createCustomer(
+                "CUS-1002",
+                "Ravi Singh",
+                "ravi.singh@example.com",
+                null,
+                CustomerStatus.PROSPECT
+        );
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> svc.createCustomer(
+                        "CUS-1002",
+                        "Other",
+                        "x@example.com",
+                        null,
+                        CustomerStatus.PROSPECT
+                )
+        );
     }
 
     @Test
-    void updateStatusChangesStatus() {
-        Customer c = new Customer("CUS-1002", "Carol", "c@example.com", "555-6666", CustomerStatus.PROSPECT, LocalDateTime.now());
-        service.addCustomer(c);
-        Customer updated = service.updateStatus("CUS-1002", CustomerStatus.ACTIVE);
-        assertEquals(CustomerStatus.ACTIVE, updated.getStatus(), "Status should be updated to ACTIVE");
-        Optional<Customer> fetched = service.findByCustomerId("CUS-1002");
-        assertTrue(fetched.isPresent());
-        assertEquals(CustomerStatus.ACTIVE, fetched.get().getStatus());
+    void unknownIdThrows() {
+        CustomerService svc = new CustomerService();
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> svc.getCustomer("CUS-9999")
+        );
     }
 
     @Test
-    void updateUnknownCustomerThrows() {
-        assertThrows(IllegalArgumentException.class, () -> service.updateStatus("UNKNOWN", CustomerStatus.ACTIVE));
+    void blankCustomerIdThrows() {
+        CustomerService svc = new CustomerService();
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> svc.createCustomer(
+                        "   ",
+                        "Amina Khan",
+                        "amina.khan@example.com",
+                        null,
+                        CustomerStatus.ACTIVE
+                )
+        );
     }
 
     @Test
-    void findByStatusReturnsOnlyMatchingCustomers() {
-        Customer c1 = new Customer("CUS-1001", "Alice", "a@example.com", "111-2222", CustomerStatus.ACTIVE, LocalDateTime.now());
-        Customer c2 = new Customer("CUS-1002", "Bob", "b@example.com", "333-4444", CustomerStatus.PROSPECT, LocalDateTime.now());
-        Customer c3 = new Customer("CUS-1003", "Carol", "c@example.com", "555-6666", CustomerStatus.ACTIVE, LocalDateTime.now());
-        service.addCustomer(c1);
-        service.addCustomer(c2);
-        service.addCustomer(c3);
+    void updateUnknownThrowsWithCorrelation() {
+        CustomerService svc = new CustomerService();
+        svc.setCorrelationId("lab-request-001");
 
-        // The service has no findByStatus method; emulate expected behavior by filtering known ids via public API.
-        List<Customer> active = new ArrayList<>();
-        for (String id : new String[]{"CUS-1001", "CUS-1002", "CUS-1003"}) {
-            Optional<Customer> oc = service.findByCustomerId(id);
-            if (oc.isPresent() && oc.get().getStatus() == CustomerStatus.ACTIVE) {
-                active.add(oc.get());
-            }
-        }
-        
-        assertEquals(2, active.size(), "There should be exactly two ACTIVE customers");
-        assertTrue(active.stream().anyMatch(cust -> "CUS-1001".equals(cust.getCustomerId())));
-        assertTrue(active.stream().anyMatch(cust -> "CUS-1003".equals(cust.getCustomerId())));
-        assertFalse(active.stream().anyMatch(cust -> "CUS-1002".equals(cust.getCustomerId())));
-    }
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> svc.updateStatus(
+                        "CUS-9999",
+                        CustomerStatus.ACTIVE
+                )
+        );
 
-    @Test
-    void addCustomerRejectsNullCustomer() {
-        assertThrows(NullPointerException.class, () -> service.addCustomer(null));
+        assertEquals(
+                "Customer not found: CUS-9999 correlationId=lab-request-001",
+                exception.getMessage()
+        );
     }
 }
+

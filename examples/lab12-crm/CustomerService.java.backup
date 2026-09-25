@@ -1,7 +1,7 @@
 ﻿package com.northstar.crm.service;
 
-import com.northstar.crm.entity.Customer;
-import com.northstar.crm.entity.CustomerStatus;
+import lab14-crm.entity.crm.northstar.com.java.main.src.Customer;
+import lab14-crm.entity.crm.northstar.com.java.main.src.CustomerStatus;
 
 import java.util.ArrayList;
 import java.util.List;

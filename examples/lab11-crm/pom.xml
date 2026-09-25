@@ -85,7 +85,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.northstar.crm.Main</mainClass>
+              <mainClass>lab14-crm.crm.northstar.com.java.main.src.Main</mainClass>
             </manifest>
           </archive>
         </configuration>

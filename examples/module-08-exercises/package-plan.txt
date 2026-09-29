@@ -1,9 +1,9 @@
 | Type | Package | Fully qualified name |
 | ---- | ------- | -------------------- |
-| `CustomerController` | `com.northstar.crm.controller` | `com.northstar.crm.controller.CustomerController` |
+| `CustomerController` | `com.northstar.crm.controller` | `lab28-crm.controller.crm.northstar.com.java.main.src.CustomerController` |
 | `CustomerService` | `com.northstar.crm.service` | `lab14-crm.service.crm.northstar.com.java.main.src.CustomerService` |
 | `CustomerRepository` | `com.northstar.crm.repository` | `lab16-crm.repository.crm.northstar.com.java.main.src.CustomerRepository` |
 | `Customer` | `com.northstar.crm.entity` | `lab14-crm.entity.crm.northstar.com.java.main.src.Customer` |
-| `CustomerRequest` | `com.northstar.crm.dto` | `com.northstar.crm.dto.CustomerRequest` |
+| `CustomerRequest` | `com.northstar.crm.dto` | `lab29-crm.dto.crm.northstar.com.java.main.src.CustomerRequest` |
 | `AppConfig` | `com.northstar.crm.config` | `lab14-crm.config.crm.northstar.com.java.main.src.AppConfig` |
 | `CustomerNotFoundException` | `com.northstar.crm.exception` | `lab14-crm.exception.crm.northstar.com.java.main.src.CustomerNotFoundException` |

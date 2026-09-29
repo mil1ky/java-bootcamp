@@ -42,7 +42,7 @@ cd ~/java-bootcamp/examples/lab30-crm
 
 ```bash
 docker compose up -d
-# then: mvn -B -q package && mvn -B exec:java -Dexec.mainClass=com.northstar.crm.event.CustomerEventProducer
+# then: mvn -B -q package && mvn -B exec:java -Dexec.mainClass=lab30-crm.event.crm.northstar.com.java.main.src.CustomerEventProducer
 ```
 
 Evidence under `~/java-bootcamp/notes/screenshots/lab-30/` (redact secrets).

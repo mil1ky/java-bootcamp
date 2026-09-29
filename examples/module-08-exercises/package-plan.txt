@@ -2,7 +2,7 @@
 | ---- | ------- | -------------------- |
 | `CustomerController` | `com.northstar.crm.controller` | `com.northstar.crm.controller.CustomerController` |
 | `CustomerService` | `com.northstar.crm.service` | `lab14-crm.service.crm.northstar.com.java.main.src.CustomerService` |
-| `CustomerRepository` | `com.northstar.crm.repository` | `com.northstar.crm.repository.CustomerRepository` |
+| `CustomerRepository` | `com.northstar.crm.repository` | `lab16-crm.repository.crm.northstar.com.java.main.src.CustomerRepository` |
 | `Customer` | `com.northstar.crm.entity` | `lab14-crm.entity.crm.northstar.com.java.main.src.Customer` |
 | `CustomerRequest` | `com.northstar.crm.dto` | `com.northstar.crm.dto.CustomerRequest` |
 | `AppConfig` | `com.northstar.crm.config` | `lab14-crm.config.crm.northstar.com.java.main.src.AppConfig` |

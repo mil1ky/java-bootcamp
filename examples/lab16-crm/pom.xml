@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.northstar</groupId>
-  <artifactId>customer-service</artifactId>
+  <artifactId>lab16-crm</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Northstar Customer Service</name>
@@ -14,19 +14,16 @@
     <junit.version>5.11.4</junit.version>
   </properties>
   <dependencies>
-    <!-- TODO: confirm jakarta.validation-api 3.1.0 present -->
     <dependency>
       <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
       <version>3.1.0</version>
     </dependency>
-    <!-- TODO: hibernate-validator 8.0.2.Final -->
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>8.0.2.Final</version>
     </dependency>
-    <!-- TODO: expressly 5.0.0 (EL provider) -->
     <dependency>
       <groupId>org.glassfish.expressly</groupId>
       <artifactId>expressly</artifactId>
@@ -38,23 +35,7 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>8.0.2.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.expressly</groupId>
-      <artifactId>expressly</artifactId>
-      <version>5.0.0</version>
-    </dependency>
   </dependencies>
-
   <build>
     <finalName>customer-service</finalName>
     <plugins>
@@ -76,7 +57,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>lab16-crm.crm.northstar.com.java.main.src.Main</mainClass>
+              <mainClass>com.northstar.crm.Main</mainClass>
             </manifest>
           </archive>
         </configuration>

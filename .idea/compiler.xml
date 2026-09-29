@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lab15-crm" />
+        <module name="customer-service" />
         <module name="customer-service (4)" />
         <module name="customer-service (5)" />
-        <module name="customer-service" />
         <module name="customer-service (1)" />
         <module name="customer-service (2)" />
         <module name="customer-service (3)" />

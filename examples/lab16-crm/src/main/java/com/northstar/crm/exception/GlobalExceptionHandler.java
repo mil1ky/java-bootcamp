@@ -1,23 +1,45 @@
 package com.northstar.crm.exception;
 
 import jakarta.validation.ConstraintViolation;
+import java.time.Instant;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 public class GlobalExceptionHandler {
 
     public ErrorResponse fromBusiness(BusinessException ex) {
-        // TODO: map statusHint / code / message / correlationId; errors = empty map
-        throw new UnsupportedOperationException("TODO: fromBusiness");
+        return new ErrorResponse(
+                Instant.now(),
+                ex.getStatusHint(),
+                ex.getCode(),
+                ex.getMessage(),
+                ex.getCorrelationId(),
+                Map.of());
     }
 
     public ErrorResponse fromValidation(
             Set<? extends ConstraintViolation<?>> violations, String correlationId) {
-        // TODO: status 400 VALIDATION_FAILED with field → message map
-        throw new UnsupportedOperationException("TODO: fromValidation");
+        Map<String, String> fields = new LinkedHashMap<>();
+        for (ConstraintViolation<?> violation : violations) {
+            fields.put(violation.getPropertyPath().toString(), violation.getMessage());
+        }
+        return new ErrorResponse(
+                Instant.now(),
+                400,
+                "VALIDATION_FAILED",
+                "Validation failed",
+                correlationId,
+                fields);
     }
 
     public ErrorResponse fromUnexpected(Exception ex, String correlationId) {
-        // TODO: status 500 INTERNAL_ERROR generic message (no stack / no ex.getMessage leak)
-        throw new UnsupportedOperationException("TODO: fromUnexpected");
+        return new ErrorResponse(
+                Instant.now(),
+                500,
+                "INTERNAL_ERROR",
+                "Unexpected server error",
+                correlationId,
+                Map.of());
     }
 }

@@ -2,6 +2,7 @@ package com.northstar.crm.service;
 
 import com.northstar.crm.entity.Customer;
 import com.northstar.crm.entity.CustomerStatus;
+import com.northstar.crm.exception.BusinessException;
 import com.northstar.crm.repository.CustomerRepository;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -32,11 +33,12 @@ public class CustomerValidator {
         }
         if (repository.existsById(customer.getCustomerId())) {
             // TODO Lab 16: replace with BusinessException.conflict(..., correlationId) — need corr on API
-            throw new IllegalStateException("duplicate customerId: " + customer.getCustomerId());
+           // throw new IllegalStateException("duplicate customerId: " + customer.getCustomerId());
+            throw BusinessException.conflict("duplicate customerId: " + customer.getCustomerId(), null);
         }
         if (customer.getEmail() != null && repository.existsByEmail(customer.getEmail())) {
             // TODO Lab 16: BusinessException.conflict for duplicate email
-            throw new IllegalStateException("duplicate email: " + customer.getEmail());
+            throw BusinessException.conflict("duplicate email: " + customer.getEmail(), null);
         }
     }
 

@@ -4,13 +4,22 @@ import { Component } from '@angular/core';
   selector: 'app-customer-list-page',
   standalone: true,
   template: `
-    <section>
-      <!-- TODO: add data-testid="customer-list" -->
+    <section data-testid="customer-list">
       <h2>Customers</h2>
-      <div>CUS-1001 Amina Khan</div>
-      <div>CUS-1002 Ravi Singh</div>
-      <input><!-- TODO: data-testid="customer-create-name" -->
-      <button>Create</button>
+
+      <div data-testid="customer-row-CUS-1001">
+        CUS-1001 Amina Khan
+      </div>
+
+      <div data-testid="customer-row-CUS-1002">
+        CUS-1002 Ravi Singh
+      </div>
+
+      <input data-testid="customer-create-name">
+
+      <button data-testid="customer-create-submit">
+        Create
+      </button>
     </section>
   `,
 })

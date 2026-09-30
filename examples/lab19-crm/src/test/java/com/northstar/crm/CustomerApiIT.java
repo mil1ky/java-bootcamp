@@ -1,6 +1,5 @@
 package com.northstar.crm;
 
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -17,25 +16,42 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 class CustomerApiIT {
+
   @Autowired
   MockMvc mockMvc;
 
   @Test
   void getAmina_returns200() throws Exception {
-    // TODO: GET /api/customers/CUS-1001 with X-Correlation-Id lab-request-001
-    // expect 200, $.id CUS-1001, $.name Amina Khan
-    fail("TODO: getAmina_returns200");
+    mockMvc.perform(get("/api/customers/CUS-1001")
+                    .header("X-Correlation-Id", "lab-request-001"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value("CUS-1001"))
+            .andExpect(jsonPath("$.name").value("Amina Khan"));
   }
 
   @Test
   void getMissing_returns404() throws Exception {
-    // TODO: GET /api/customers/CUS-9999 → 404
-    fail("TODO: getMissing_returns404");
+    mockMvc.perform(get("/api/customers/CUS-9999")
+                    .header("X-Correlation-Id", "lab-request-001"))
+            .andExpect(status().isNotFound());
   }
 
   @Test
   void create_returns201() throws Exception {
-    // TODO: POST CUS-1003 Maya Chen → 201 and Location /api/customers/CUS-1003
-    fail("TODO: create_returns201");
+    String json = """
+                {
+                  "id": "CUS-1003",
+                  "name": "Maya Chen",
+                  "email": "maya.chen@example.com",
+                  "status": "PROSPECT"
+                }
+                """;
+
+    mockMvc.perform(post("/api/customers")
+                    .header("X-Correlation-Id", "lab-request-001")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json))
+            .andExpect(status().isCreated())
+            .andExpect(header().string("Location", "/api/customers/CUS-1003"));
   }
 }

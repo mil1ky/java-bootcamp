@@ -27,9 +27,11 @@ public class CustomerService {
         try {
             Customer saved = repository.save(customer);
             // TODO: metrics.recordCreate("success");
+            metrics.recordCreate("success");
             return saved;
         } catch (RuntimeException ex) {
             // TODO: metrics.recordCreate("failure");
+            metrics.recordCreate("failure");
             throw ex;
         }
     }
@@ -40,6 +42,7 @@ public class CustomerService {
         log.info("get customer");
         Optional<Customer> found = repository.findById(customerId);
         // TODO: metrics.recordGet(found.isPresent() ? "success" : "not_found");
+        metrics.recordGet(found.isPresent() ? "success" : "not_found");
         return found;
     }
 }

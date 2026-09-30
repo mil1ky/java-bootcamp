@@ -6,18 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="lab15-crm" />
         <module name="customer-service" />
         <module name="customer-service (4)" />
         <module name="customer-service (5)" />
         <module name="lab17-crm" />
-        <module name="lab18-crm" />
-        <module name="lab16-crm" />
         <module name="lab19-crm" />
-        <module name="lab20-crm" />
         <module name="customer-service (1)" />
         <module name="customer-service (2)" />
         <module name="customer-service (3)" />
+        <module name="lab15-crm" />
+        <module name="lab21-crm" />
+        <module name="lab18-crm" />
+        <module name="lab16-crm" />
+        <module name="lab20-crm" />
       </profile>
     </annotationProcessing>
   </component>
@@ -25,6 +26,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="lab19-crm" options="-parameters" />
       <module name="lab20-crm" options="-parameters" />
+      <module name="lab21-crm" options="-parameters" />
     </option>
   </component>
 </project>

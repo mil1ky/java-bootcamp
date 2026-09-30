@@ -19,6 +19,21 @@ public class CorrelationFilter extends OncePerRequestFilter {
         // TODO: read X-Correlation-Id (default lab-request-001); MDC.put("corr", ...); echo response header
         // TODO: call filterChain.doFilter ONLY inside try; always MDC.clear() in finally
         // Do NOT leave a bare doFilter call outside try/finally (double-invoke / skipped MDC).
-        throw new UnsupportedOperationException("TODO: wire MDC + doFilter in try/finally");
+        String cid = request.getHeader(HEADER);
+
+        if (cid == null || cid.isBlank()) {
+            cid = "lab-request-001";
+        }
+
+        MDC.put("corr", cid);
+        response.setHeader(HEADER, cid);
+
+        try {
+            filterChain.doFilter(request, response);
+        } finally {
+            MDC.clear();
+        }
     }
-}
+        //throw new UnsupportedOperationException("TODO: wire MDC + doFilter in try/finally");
+    }
+

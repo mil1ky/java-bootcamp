@@ -26,6 +26,24 @@ class CustomerLoggingIT {
         // TODO: GET CUS-1001 with X-Correlation-Id lab-request-001
         // assert output contains lab-request-001 and CUS-1001
         // assert output doesNotContain "Amina"
-        throw new UnsupportedOperationException("TODO: logging assertions");
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Correlation-Id", "lab-request-001");
+
+        ResponseEntity<String> res = rest.exchange(
+                "http://localhost:" + port + "/api/customers/CUS-1001",
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                String.class);
+
+        assertEquals(HttpStatus.OK, res.getStatusCode());
+
+        String logs = output.getOut() + output.getErr();
+
+        assertTrue(logs.contains("lab-request-001"));
+        assertTrue(logs.contains("CUS-1001"));
+        assertFalse(logs.contains("Amina"));
+        assertFalse(logs.toLowerCase().contains(
+                "amina.khan@example.com"));
     }
-}
+    }
+

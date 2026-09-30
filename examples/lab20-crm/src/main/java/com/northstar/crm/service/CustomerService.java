@@ -19,6 +19,12 @@ public class CustomerService {
 
     public Customer create(Customer customer, String correlationId) {
         // TODO: MDC.put("cust", customer.getCustomerId()); MDC.put("op", "create"); INFO log without fullName/email
+        String customerId = customer.getCustomerId();
+
+        MDC.put("cust", customerId);
+        MDC.put("op", "create");
+
+        log.info("create customer id={}", customerId);
         if (customer.getCustomerId() == null || customer.getCustomerId().isBlank()) {
             throw new IllegalArgumentException("customerId required [" + correlationId + "]");
         }
@@ -27,6 +33,10 @@ public class CustomerService {
 
     public Optional<Customer> findById(String customerId) {
         // TODO: MDC.put("cust", customerId); MDC.put("op", "get"); INFO log; never log PII
+        MDC.put("cust", customerId);
+        MDC.put("op", "get");
+
+        log.info("get customer id={}", customerId);
         return repository.findById(customerId);
     }
 }

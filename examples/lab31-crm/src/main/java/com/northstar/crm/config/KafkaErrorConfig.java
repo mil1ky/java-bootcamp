@@ -15,7 +15,14 @@ public class KafkaErrorConfig {
   public CommonErrorHandler kafkaErrorHandler(KafkaTemplate<Object, Object> template) {
     // TODO: DeadLetterPublishingRecoverer + DefaultErrorHandler with bounded FixedBackOff
     // TODO: classify non-retryable contract errors (optional for timed path)
-    DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(template);
-    return new DefaultErrorHandler(recoverer, new FixedBackOff(500L, 2L));
+    DeadLetterPublishingRecoverer recoverer =
+            new DeadLetterPublishingRecoverer(template);
+
+    DefaultErrorHandler handler =
+            new DefaultErrorHandler(
+                    recoverer,
+                    new FixedBackOff(1000L, 2L));
+
+    return handler;
   }
 }

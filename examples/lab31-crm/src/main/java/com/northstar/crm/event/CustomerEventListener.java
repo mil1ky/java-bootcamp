@@ -25,6 +25,32 @@ public class CustomerEventListener {
     // TODO: reject when key == null or key does not equal event.customerId()
     // TODO: skip when !store.markIfNew(event.eventId())
     // TODO: log correlationId + customerId (no PII beyond fixture ids)
-    throw new UnsupportedOperationException("TODO: validate key, idempotency, handle");
+    // Reject missing or incorrect Kafka keys
+    if (key == null || !key.equals(event.customerId())) {
+      throw new InvalidCustomerEventException("Kafka key does not match customerId");
+    }
+
+    // Ignore duplicate events
+    if (!store.markIfNew(event.eventId())) {
+      log.info("duplicate_event_ignored eventId={} customerId={}", event.eventId(), event.customerId());
+      return;
+    }
+
+    // Log only safe event metadata
+    log.info(
+        "customer_event_received correlationId={} customerId={} eventId={}",
+        event.correlationId(),
+        event.customerId(),
+        event.eventId());
+
+    // Handle the event
+    log.info("customer_event_handled customerId={}", event.customerId());
   }
 }
+
+class InvalidCustomerEventException extends RuntimeException {
+  public InvalidCustomerEventException(String message) {
+    super(message);
+  }
+}
+

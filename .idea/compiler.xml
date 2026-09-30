@@ -17,6 +17,7 @@
         <module name="customer-service (3)" />
         <module name="lab15-crm" />
         <module name="lab21-crm" />
+        <module name="lab23-crm" />
         <module name="lab18-crm" />
         <module name="lab16-crm" />
         <module name="lab20-crm" />
@@ -29,6 +30,7 @@
       <module name="lab20-crm" options="-parameters" />
       <module name="lab21-crm" options="-parameters" />
       <module name="lab22-crm" options="-parameters" />
+      <module name="lab23-crm" options="-parameters" />
     </option>
   </component>
 </project>

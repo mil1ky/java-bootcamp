@@ -1,14 +1,24 @@
 spring:
   application:
-    # TODO: set name to northstar-crm
-    name:
+    name: northstar-crm
+
 server:
-  # TODO: set port to 8080
-  port:
+  port: 8080
+
 management:
   endpoints:
     web:
       exposure:
-        # TODO: expose health,info
-        include:
-# TODO: add logging.level.com.northstar.crm: INFO
+        include: health,info
+  endpoint:
+    health:
+      show-details: when_authorized
+
+logging:
+  level:
+    com.northstar.crm: INFO
+
+info:
+  app:
+    name: northstar-crm
+    description: Lab 23 Spring Boot CRM slice

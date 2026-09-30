@@ -17,11 +17,20 @@ public class CustomerService {
 
   public Customer create(Customer customer, String correlationId) {
     // TODO: reject blank id; put into store; return customer (correlation for logs/evidence)
-    throw new UnsupportedOperationException("TODO: create");
+    store.put(customer.getId(), customer);
+    return customer;
   }
 
   public Customer get(String id) {
     // TODO: return store.get or throw not-found for CUS-MISSING path
-    throw new UnsupportedOperationException("TODO: get");
+    Customer found = store.get(id);
+
+    if (found == null) {
+      throw new IllegalArgumentException(
+              "Customer not found: " + id
+      );
+    }
+
+    return found;
   }
 }

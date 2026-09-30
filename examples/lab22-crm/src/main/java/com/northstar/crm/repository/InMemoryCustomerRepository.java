@@ -1,11 +1,14 @@
 package com.northstar.crm.repository;
 
 import com.northstar.crm.model.Customer;
+import org.springframework.stereotype.Repository;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 // TODO: add @Repository so Spring registers this as a bean
+@Repository
 public class InMemoryCustomerRepository implements CustomerRepository {
   private final Map<String, Customer> store = new ConcurrentHashMap<>();
 

@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 // TODO: add @ConfigurationProperties(prefix = "northstar.integration")
 // TODO: enable via @EnableConfigurationProperties or @ConfigurationPropertiesScan on CrmApplication
+@ConfigurationProperties(prefix = "northstar.integration")
 public class NorthstarIntegrationProperties {
   private String apiBaseUrl;
   private int connectTimeoutMs = 2000;

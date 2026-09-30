@@ -2,9 +2,8 @@ spring:
   datasource:
     url: jdbc:postgresql://db.example.internal:5432/crm
     username: ${DB_USERNAME}
-    # TODO: password: ${DB_PASSWORD}  (no default)
-    password:
+    password: ${DB_PASSWORD}
+
 northstar:
   integration:
-    # TODO: api-key: ${NORTHSTAR_API_KEY}
-    api-key:
+    api-key: ${NORTHSTAR_API_KEY}

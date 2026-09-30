@@ -3,6 +3,7 @@ package com.northstar.crm.api;
 import com.northstar.crm.dto.CustomerRequest;
 import com.northstar.crm.model.Customer;
 import com.northstar.crm.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ public class CustomerController {
   @ResponseStatus(HttpStatus.CREATED)
   public Customer create(
       // TODO: add @Valid before CustomerRequest
+      @Valid
       @RequestBody CustomerRequest request,
       @RequestHeader(value = "X-Correlation-Id", defaultValue = "lab-request-001") String correlationId) {
     return customerService.create(request, correlationId);

@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 /**
@@ -24,6 +25,9 @@ public class CustomerEventProducer {
     // TODO: set ACKS_CONFIG to "all"
     // TODO: set ENABLE_IDEMPOTENCE_CONFIG to true
     // TODO: set CLIENT_ID_CONFIG to something like "lab30-customer-producer"
+    props.put(ProducerConfig.ACKS_CONFIG, "all");
+    props.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, true);
+    props.put(ProducerConfig.CLIENT_ID_CONFIG, "lab30-customer-producer");
 
     String key = "CUS-1001";
     Path payloadPath = Path.of("events/customer-created-amina.json");
@@ -31,8 +35,11 @@ public class CustomerEventProducer {
 
     try (KafkaProducer<String, String> producer = new KafkaProducer<>(props)) {
       // TODO: build ProducerRecord<>(topic, key, value) and send(); print metadata (partition, offset)
-      ProducerRecord<String, String> record = null; // TODO
-      throw new UnsupportedOperationException("TODO: send keyed record and print RecordMetadata");
+      ProducerRecord<String, String> record =
+              new ProducerRecord<>(topic, key, value);
+
+      RecordMetadata metadata = producer.send(record).get();
+      System.out.println("Published record to partition " + metadata.partition() + " with offset " + metadata.offset());
     }
   }
 }

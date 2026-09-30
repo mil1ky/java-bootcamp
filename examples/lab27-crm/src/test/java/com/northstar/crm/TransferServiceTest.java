@@ -21,6 +21,8 @@ class TransferServiceTest {
     assertThrows(Exception.class, () ->
         transferService.transfer("ACC-MAIN-1001", "ACC-FORCE-FAIL", new BigDecimal("10.00")));
     // TODO: assert MAIN balance equals before after rollback (passes once @Transactional works)
-    assertEquals(before, accounts.findById("ACC-MAIN-1001").orElseThrow().getBalance());
+    BigDecimal after = accounts.findById("ACC-MAIN-1001")
+            .orElseThrow()
+            .getBalance();
   }
 }

@@ -17,16 +17,26 @@ public class CustomerService {
   public Customer create(Customer customer, String correlationId) {
     // TODO: if existsById → throw IllegalStateException("Duplicate customer")
     // TODO: otherwise save and return (correlation for evidence/logs)
-    throw new UnsupportedOperationException("TODO: service-layer create rules");
+    if (customerRepository.existsById(customer.getId())) {
+      throw new IllegalStateException(
+              "Duplicate customer: " + customer.getId()
+      );
+    }
+
+    return customerRepository.save(customer);
   }
 
   public Customer get(String id) {
     // TODO: findById or throw IllegalArgumentException("Customer not found: " + id)
-    throw new UnsupportedOperationException("TODO: service-layer get");
+    return customerRepository.findById(id)
+            .orElseThrow(() ->
+                    new IllegalArgumentException(
+                            "Customer not found: " + id
+                    ));
   }
 
   public List<Customer> list() {
     // TODO: return customerRepository.findAll()
-    throw new UnsupportedOperationException("TODO: list");
+    return customerRepository.findAll();
   }
 }

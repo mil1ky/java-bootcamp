@@ -6,6 +6,18 @@ import { Customer } from './customer.model';
   standalone: true,
   template: `
     <!-- TODO: show customer().id, name, status; emit select on click -->
+    <div class="customer-item">
+      <div>
+        <strong>{{ customer.name }}</strong>
+        <div>{{ customer.id }}</div>
+        <div>{{ customer.status }}</div>
+      </div>
+
+      <button type="button" (click)="select.emit(customer.id)">
+        Select
+      </button>
+    </div>
+  \`
     <button type="button" class="row">TODO list item</button>
   `,
   styles: `

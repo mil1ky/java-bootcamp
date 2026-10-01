@@ -1,10 +1,14 @@
+
+// @ts-ignore
 import { Component, computed, signal } from '@angular/core';
+// @ts-ignore
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CustomerListItemComponent } from './customer-list-item.component';
 import { Customer, SEED_CUSTOMERS } from './customer.model';
 
 type StatusFilter = 'ALL' | 'ACTIVE' | 'PROSPECT';
 
+// @ts-ignore
 @Component({
   selector: 'app-customer-list-page',
   standalone: true,
@@ -42,10 +46,23 @@ export class CustomerListPageComponent {
   });
 
   // TODO: computed filter from statusFilter + customers
-  filteredCustomers = computed(() => this.customers());
+  filteredCustomers = computed(() => {
+    const filter = this.statusFilter();
+    const customers = this.customers();
+
+    if (filter === 'ALL') {
+      return customers;
+    }
+
+    return customers.filter((customer: { status: any; }) => customer.status === filter);
+  });
 
   constructor() {
-    // TODO: valueChanges -> statusFilter.set; call loadSeeds()
+    this.filterForm.controls.status.valueChanges.subscribe((status: any) => {
+      this.statusFilter.set(status);
+    });
+
+    this.loadSeeds();
   }
 
   loadSeeds(): void {

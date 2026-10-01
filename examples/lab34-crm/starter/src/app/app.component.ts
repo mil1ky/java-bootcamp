@@ -1,6 +1,8 @@
+// @ts-ignore
 import { Component } from '@angular/core';
 import { CustomerListPageComponent } from './features/customers/customer-list-page.component';
 
+// @ts-ignore
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -1,0 +1,43 @@
+package com.northstar.crm.account;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import java.util.concurrent.CompletableFuture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AccountProfileService {
+
+  private static final Logger log = LoggerFactory.getLogger(AccountProfileService.class);
+
+  private final AccountClient client;
+
+  public AccountProfileService(AccountClient client) {
+    this.client = client;
+  }
+
+  // TODO: add @CircuitBreaker(name = "accountProfile", fallbackMethod = "fallback")
+  // TODO: add @Retry(name = "accountProfile")
+  // TODO: add @TimeLimiter(name = "accountProfile")
+  @CircuitBreaker(
+      name = "accountProfile",
+      fallbackMethod = "fallback")
+  @Retry(name = "accountProfile")
+  @TimeLimiter(name = "accountProfile")
+  public CompletableFuture<AccountSummary> find(String customerId) {
+    return CompletableFuture.supplyAsync(() -> client.fetch(customerId));
+  }
+
+  @SuppressWarnings("unused")
+  private CompletableFuture<AccountSummary> fallback(String customerId, Throwable ex) {
+    log.warn(
+        "account_profile_degraded customerId={} cause={}",
+        customerId,
+        ex.getClass().getSimpleName());
+
+    return CompletableFuture.completedFuture(AccountSummary.unavailable(customerId));
+  }
+}
